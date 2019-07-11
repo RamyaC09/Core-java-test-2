@@ -1,0 +1,350 @@
+****************MAIN*************
+package ui;
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String args[])
+	{
+		VehicleView ob1 = new VehicleView();
+		DistributorView ob2 = new DistributorView();
+		Scanner sc = new Scanner(System.in);
+		int ch;
+		do 
+		{
+			System.out.println("Enter your choice: \n 1. Add vehicle Details: \n 2. Retrieve user Details: \n 3. Add Distributor Details: \n 4. Retrieve Distributor Details:");
+			ch = sc.nextInt();
+			switch(ch)
+			{
+			case 1:
+				ob1.addVehicle(); 
+				break;
+			case 2:
+				ob1.retrieveVehicle();
+				break;
+			case 3:
+				ob2.addDistributor();
+				break;
+			case 4:
+				ob2.retrieveDistributor();
+				break;
+			}
+		}while(ch!=4);
+		
+	}
+}
+
+
+**********VEHICLE VIEW*********
+package ui;
+import java.util.Scanner;
+import bean.Vehicle;
+import service.HondaShoppe;
+public class VehicleView 
+{
+	//Vehicle beanOb;
+	//HondaShoppe hs = new HondaShoppe();
+	Scanner sc = new Scanner(System.in);
+	
+	public void addVehicle()
+	{
+		System.out.println("Accept vehicle Details:");
+		System.out.println("Enter the vehicle Id:");
+		int vehicleId = sc.nextInt();
+		System.out.println("Enter model name:");
+		String modelName = sc.next();
+		System.out.println("Enter price of vehicle:");
+		double price = sc.nextDouble();
+		Vehicle beanOb = new Vehicle(vehicleId, modelName, price);
+		
+		
+	}
+	
+	public void retrieveVehicle()
+	{
+		System.out.println("retrieve vehicle id from vehicle deatils:");
+		int vehicleId = sc.nextInt();
+		Vehicle beanOb = new Vehicle(vehicleId);
+	}
+}
+
+
+*********DISTRIBUTOR VIEW**********
+package ui;
+import java.util.Scanner;
+import bean.Distributor;
+import bean.Vehicle;
+public class DistributorView
+{
+	Scanner sc = new Scanner(System.in);
+	
+	public void addDistributor()
+	{
+		System.out.println("Accept Distributor Details:");
+		System.out.println("Enter Distributor Id:");
+		int distributorId = sc.nextInt();
+		System.out.println("Enter name:");
+		String name = sc.next();
+		System.out.println("Enter mobile number:");
+		String mobileNo = sc.next();
+		System.out.println("Enter address:");
+		String address = sc.next();
+		Distributor beanOb = new Distributor(distributorId, name, mobileNo, address);
+	}
+	
+	public void retrieveDistributor()
+	{
+		System.out.println("Retrieve name:");
+		String name = sc.next();
+		Distributor beanOb = new Distributor(name);
+	}
+}
+
+
+*****VEHICLE BEAN*********
+package bean;
+
+public class Vehicle 
+{
+	private int vehicleId;
+	private String modelName;
+	private double price;
+	
+	public Vehicle(int vehicleId)
+	{
+		this.vehicleId = vehicleId;
+	}
+	
+	public Vehicle(int vehicleId, String modelname, double price)
+	{
+		this.vehicleId = vehicleId;
+		this.modelName = modelName;
+		this.price = price;
+	}
+
+	public int getVehicleId() {
+		return vehicleId;
+	}
+
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+}
+
+*********DISTRIBUTOR BEAN********
+package bean;
+
+public class Distributor
+{
+	private int distributorId;
+	private String name;
+	private String mobileNo;
+	private String address;
+	
+	public Distributor(String name)
+	{
+		this.name = name;
+	}
+	
+	public Distributor(int distributorId, String name, String mobileNo, String address)
+	{
+		this.distributorId = distributorId;
+		this.name = name;
+		this.mobileNo = mobileNo;
+		this.address = address;
+	}
+
+	public int getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(int distributorId) {
+		this.distributorId = distributorId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	
+}
+
+******VehicleDistributionBEAN********
+package dao;
+
+import bean.Distributor;
+
+//import bean.Vehicle.Distributor;
+
+public interface DistributorDAO 
+{
+	public int addDistributor(Distributor distributor);
+	public void getDistributedDetails();
+
+}
+
+*********VEHICLE DAO*********
+package dao;
+import java.util.ArrayList;
+import java.util.List;
+
+import bean.Vehicle;
+
+public interface VehicleDAO 
+{
+	public int addVehicle(Vehicle vehicle);
+	public void getVehicleDetails();
+
+}
+
+***********VEHICLE DAO IMPL***********
+package dao;
+import java.util.ArrayList;
+import java.util.List;
+import bean.Vehicle;
+public class vehicleDAOImpl implements VehicleDAO
+{ 
+		
+		public int vehicleStore(Vehicle vehicle)
+		{
+			List<Vehicle> l = new ArrayList<Vehicle>();
+			l.add(vehicle);
+			System.out.println("l");
+			return 0;
+		}
+		
+		public void getVehicleDetails()
+		{
+			
+		}
+
+		@Override
+		public int addVehicle(Vehicle vehicle) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+}
+
+*************DISTRIBUTOR DAO************
+package dao;
+
+import bean.Distributor;
+
+//import bean.Vehicle.Distributor;
+
+public interface DistributorDAO 
+{
+	public int addDistributor(Distributor distributor);
+	public void getDistributedDetails();
+
+}
+
+********DistributorDAO Impl*********
+package dao;
+import java.util.ArrayList;
+import java.util.List;
+import bean.Distributor;
+//import bean.Vehicle;
+public class DistributorDAOImpl implements DistributorDAO
+{
+	
+	public int distributorStore(Distributor distributor)
+	{
+		List<Distributor> l = new ArrayList<Distributor>();
+		l.add(distributor);
+		System.out.println("l");
+		return 0;
+	}
+	
+	public void getDistributorDetails()
+	{
+		
+	}
+	
+	@Override
+	public int addDistributor(Distributor distributor) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void getDistributedDetails() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+***********CAR TYPE ENUM**********
+
+
+public enum CarType 
+{
+	hatchback, Sedan, MPV, Suv;
+}
+class Type
+{
+	CarType type;
+	public Type(CarType type)
+	{
+		this.type = type;
+	}
+	
+	public static void main(String args[])
+	{
+		CarType ct1 = CarType.hatchback;
+		System.out.println(ct1);
+	}
+}
+
+
+*********HONDA SHOPPE SERVICE**********
+package service;
+
+public interface HondaShoppe 
+{
+	//public void addVehicleDistributor(HashMap<Vehicle, Distributor>);
+}
+ 
+
+***********HONDA SHOPPE SERVICE IMLP********
+package service;
+
+public class HondaShoppeServiceImpl 
+{
+	
+}
